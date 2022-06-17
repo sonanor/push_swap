@@ -25,8 +25,8 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	stack = initialize_stack(argc, argv);
-//	sort_stack(stack);
-	create_butterfly(stack);
+	sort_stack(stack);
+	do_primary_sorting(stack);
 	sort_butterfly(stack);
 //	int i = 0;
 //	while (i < stack->size_a)

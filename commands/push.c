@@ -60,7 +60,7 @@ void	push_a(t_struct *list)
 	}
 }
 
-void	push(t_struct *list, char dst_stack, int writable)
+void push(t_struct *list, char dst_stack)
 {
 	int		src_size;
 	char	src_stack_char;
@@ -85,6 +85,5 @@ void	push(t_struct *list, char dst_stack, int writable)
 		list->size_a++;
 		list->size_b--;
 	}
-	if (writable)
-		write_cmd(dst_stack, 'p');
+	write_cmd(dst_stack, 'p');
 }

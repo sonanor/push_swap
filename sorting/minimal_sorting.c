@@ -24,9 +24,9 @@ void	sort_three_nums(t_struct *list, char stack_char)
 	second = stack->next->index;
 	last = stack->prev->index;
 	if (top > second && top > last)
-		rotate(list, stack_char, 1);
+		rotate(list, stack_char);
 	else if (second > top && second > last)
-		r_rotate(list, stack_char, 1);
+		r_rotate(list, stack_char);
 	if (stack_char == 'a')
 	{
 		top = list->stack_a->index;
@@ -38,78 +38,21 @@ void	sort_three_nums(t_struct *list, char stack_char)
 		second = list->stack_b->next->index;
 	}
 	if (top > second)
-		swap(list, stack_char, 1);
+		swap(list, stack_char);
 }
 
-void	treat_three(t_struct *list, char stack_char, int flag)
+void	sort_five_nums(t_struct *list)
 {
-	t_node	*stack;
-
-	stack = identify_stack(list, 'b');
-	if (stack)
-		sort_three_nums(list, 'b');
-	while (list->size_b > 0)
+	while (list->size_a > 3)
 	{
-		if (list->stack_a->index > list->stack_a->next->index \
-		&& list->stack_a->flag == list->stack_a->next->flag)
-			swap(list, 'a', 1);
-		sort_last_tree(list, stack_char, flag);
-		if (list->size_b == 1)
-			break ;
-	}
-	if (stack_char == 'b')
-		while (list->stack_a->index == list->min_sort)
-			push_down(list);
-}
-
-void	sort_five_b(t_struct *list)
-{
-	int	flag;
-	int	size;
-
-	flag = list->stack_a->flag;
-	size = list->size_b;
-	while (size > 3)
-	{
-		if (list->stack_b->index == list->min_sort)
-		{
-			push(list, 'a', 1);
-			push_down(list);
-		}
-		else if (list->stack_a->index == list->min_sort)
-			push_down(list);
+		if (list->stack_a->index == 1 || list->stack_a->index == 2)
+			push(list, 'b');
 		else
-			push(list, 'a', 1);
-		size--;
+			rotate(list, 'a');
 	}
-	if (list->size_b <= 3)
-		treat_three(list, 'b', flag);
-}
-
-void	sort_five_a(t_struct *list)
-{
-	t_node	*tmp;
-	int		flag;
-	int		size;
-
-	flag = list->stack_a->flag;
-	tmp = list->stack_a;
-	size = 0;
-	while (tmp->flag == flag && flag != -1)
-	{
-		tmp = tmp->next;
-		size++;
-	}
-	if (size <= 5 && size != 0)
-	{
-		while (size > 2)
-		{
-			if (list->stack_a->index == list->min_sort)
-				push_down(list);
-			else
-				push(list, 'b', 1);
-			size--;
-		}
-		treat_three(list, 'a', flag);
-	}
+	sort_three_nums(list, 'a');
+	if (is_sorted_stack(list, 'b'))
+		swap(list, 'b');
+	push(list, 'a');
+	push(list, 'a');
 }

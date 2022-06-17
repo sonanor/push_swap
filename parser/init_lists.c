@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../push_swap.h"
+#include "push_swap.h"
 
 t_node	*create_new_list(int index)
 {

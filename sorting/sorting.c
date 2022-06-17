@@ -12,62 +12,58 @@
 
 #include "../push_swap.h"
 
-void	sort_next_chunk(t_struct *list)
-{
-	int	flag;
-
-	flag = list->stack_a->flag;
-	if (!is_sorted_stack(list, 'a'))
-	{
-		while (list->stack_a->flag != -1 && list->stack_a->flag == flag)
-		{
-			if (list->stack_a->index == list->min_sort)
-				push_down(list);
-			else
-				push(list, 'b', 1);
-		}
-	}
-}
-
 void	sort_stack(t_struct *list)
 {
-	get_median(list, 'a');
-	if (list->size_a < 6)
+	if (list->size_a <= 3)
+		sort_three_nums(list, 'a');
+	else if (list->size_a <= 5)
+		sort_five_nums(list);
+	else
 	{
-		sort_five(list);
-		free_stack(list);
-		exit(0);
+		do_primary_sorting(list);
+		do_secondary_sorting(list);
 	}
-	primary_sorting(list);
-	while (!(is_sorted_stack(list, 'a')) || list->size_b > 0)
-	{
-		if (list->stack_b && list->size_b < 6)
-		{
-			sort_five_b(list);
-			sort_next_chunk(list);
-		}
-		else if (list->size_b >= 6)
-			secondary_sorting(list);
-		if (list->size_b == 0)
-		{
-			sort_five_a(list);
-			sort_next_chunk(list);
-		}
-	}
-}
 
-void	sort_five(t_struct *list)
-{
-	while (list->size_a > 3)
+	void do_secondary_sorting(t_struct *list)
 	{
-		if (list->stack_a->index == 1 || list->stack_a->index == 2)
-			push(list, 'b', 1);
-		else
-			rotate(list, 'a', 1);
+		get_max_value(list);
+		while (list->size_b > 0)
+		{
+			if (list->stack_b->index == list->max)
+			{
+				push(list,'a');
+				list->max--;
+			}
+			else if (list->stack_b->prev->index == list->max)
+			{
+				r_rotate(list, 'b');
+				push(list, 'a');
+				list->max--;
+			}
+			else
+				scroll_stack(list);
+		}
 	}
-	sort_three_nums(list, 'a');
-	if (is_sorted_stack(list, 'b'))
-		swap(list, 'b', 1);
-	push(list, 'a', 1);
-	push(list, 'a', 1);
-}
+
+	void do_primary_sorting(t_struct *list)
+	{
+		int range;
+
+		range = determine_range(list->size_a);
+		while (list->size_a != 0)
+		{
+			if (list->stack_a->index <= list->min_sort)
+			{
+				push(list, 'b');
+				list->min_sort++;
+			}
+			else if (list->stack_a->index <= list->min_sort + range)
+			{
+				push(list, 'b');
+				rotate(list, 'b');
+				list->min_sort++;
+			}
+			else
+				rotate(list, 'a');
+		}
+	}

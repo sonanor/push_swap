@@ -81,3 +81,30 @@ void	free_stack(t_struct *list)
 	free(list);
 	exit(0);
 }
+
+int	*create_index_arr(int *sorted_arr, int *row_arr, int arr_len)
+{
+	int	i;
+	int	j;
+	int	*index_array;
+
+	i = 0;
+	index_array = (int *) malloc(sizeof (int) * arr_len);
+	if (!index_array)
+	{
+		free(sorted_arr);
+		free(row_arr);
+		return (NULL);
+	}
+	while (i < arr_len)
+	{
+		j = 0;
+		while (row_arr[i] != sorted_arr[j])
+			j++;
+		index_array[i] = j;
+		i++;
+	}
+	free(sorted_arr);
+	free(row_arr);
+	return (index_array);
+}

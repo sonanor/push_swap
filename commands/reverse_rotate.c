@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-void	r_rotate(t_struct *list, char stack_char, int writable)
+void r_rotate(t_struct *list, char stack_char)
 {
 	if (get_size(list, stack_char) > 1)
 	{
@@ -20,18 +20,6 @@ void	r_rotate(t_struct *list, char stack_char, int writable)
 			list->stack_a = list->stack_a->prev;
 		else
 			list->stack_b = list->stack_b->prev;
-		if (writable)
-			write_cmd(stack_char, 'v');
+		write_cmd(stack_char, 'v');
 	}
-}
-
-void	rrr(t_struct *list, int writable)
-{
-	if (list->size_a > 1 && list->size_b > 1)
-	{
-		r_rotate(list, 'a', 0);
-		r_rotate(list, 'b', 0);
-	}
-	if (writable)
-		write_cmd('r', 'v');
 }

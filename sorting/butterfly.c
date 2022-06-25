@@ -14,6 +14,7 @@ void get_max_value(t_struct *list)
 	int size;
 	t_node *tmp;
 
+	max = 0;
 	size = list->size_b;
 	tmp = list->stack_b;
 	while (size-- > 0)
@@ -25,11 +26,11 @@ void get_max_value(t_struct *list)
 	list->max = max;
 }
 
-void scroll(t_struct *list, int depth, void (*f)(t_struct *, char))
+void scroll(t_struct *list, int depth, void (*f)(t_struct *, char, int))
 {
 	while (depth > 0)
 	{
-		(*f)(list, 'b');
+		(*f)(list, 'b', 1);
 		depth--;
 	}
 }
@@ -43,7 +44,7 @@ void scroll_stack(t_struct *list)
 	depth = 1;
 	tmp_top = list->stack_b->next;
 	tmp_bottom = list->stack_b->prev->prev;
-	while (tmp_top->index != list->max || tmp_bottom->index != list->max)
+	while (tmp_top->index != list->max && tmp_bottom->index != list->max)
 	{
 		tmp_top = tmp_top->next;
 		tmp_bottom = tmp_bottom->prev;

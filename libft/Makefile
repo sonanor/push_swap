@@ -48,6 +48,9 @@ SRCS	= 	ft_isalnum.c	\
 			ft_putnbr_fd.c	\
 			ft_isspace.c	\
 			ft_atoi.c		\
+			ft_strcmp.c		\
+			save_free.c		\
+			ft_strcpy.c		\
 
 SRCSBONUS	=	ft_lstnew_bonus.c		\
 				ft_lstadd_front_bonus.c	\

@@ -1,0 +1,4 @@
+/Users/adratini/Documents/push_swap/cmake-build-debug/CMakeFiles/push_swap.dir
+/Users/adratini/Documents/push_swap/cmake-build-debug/CMakeFiles/bonus.dir
+/Users/adratini/Documents/push_swap/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/adratini/Documents/push_swap/cmake-build-debug/CMakeFiles/rebuild_cache.dir

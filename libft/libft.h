@@ -67,5 +67,8 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_isspace(char c);
 int		ft_atoi(const char *str);
+int		ft_strcmp(const char *str1, const char *str2);
+void	save_free(char **str);
+char	*ft_strcpy(char *dest, char *src);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-void swap(t_struct *list, char stack_char)
+void swap(t_struct *list, char stack_char, int is_writable)
 {
 	int		tmp;
 	t_node	*stack;
@@ -23,8 +23,6 @@ void swap(t_struct *list, char stack_char)
 	tmp = stack->index;
 	stack->index = stack->next->index;
 	stack->next->index = tmp;
-	tmp = stack->flag;
-	stack->flag = stack->next->flag;
-	stack->next->flag = tmp;
-	write_cmd(stack_char, 's');
+	if (is_writable)
+		write_cmd(stack_char, 's');
 }

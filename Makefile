@@ -11,32 +11,36 @@
 # **************************************************************************** #
 
 NAME	= push_swap
+NAME_B	= checker
 
-SRCS	= 	commands/push.c				\
+SRCS_SHARE	= 	commands/push.c				\
 			commands/reverse_rotate.c	\
 			commands/rotate.c			\
 			commands/swap.c				\
 			helpers/sorting_helpers.c	\
-			helpers/sorting_helpers_2.c	\
 			helpers/utils.c				\
 			helpers/validation.c		\
+			helpers/helpers.c			\
 			parser/init_lists.c			\
 			parser/parser.c				\
 			sorting/minimal_sorting.c	\
-			sorting/primary_sorting.c	\
-			sorting/secondary_sorting.c	\
 			sorting/sorting.c			\
-			push_swap.c					\
-			sorting/butterfly.c			\
+			sorting/butterfly.c
 
+SRCS_MANDATORY = push_swap.c
 
-OBJ		=	$(SRCS:%.c=%.o)
+SRCS_BONUS	= bonus/bonus_checker.c		\
+				gnl/get_next_line.c			\
+				gnl/get_next_line_utils.c	\
+
+OBJ_M		=	$(SRCS_MANDATORY:.c=.o)
+OBJ_S		=	$(SRCS_SHARE:.c=.o)
+OBJ_B	=	$(SRCS_BONUS:.c=.o)
 
 LIB		=	libft/libft.a
 
-INCLUDE	=	include/
-
-HEADER	=	push_swap.h
+HEADER_SRCS		=	push_swap.h
+HEADER_BONUS	=	bonus/bonus_checker.h
 
 CC		=	gcc
 
@@ -54,32 +58,37 @@ GRY		=	\033[1;30m
 TURQUOISE =	\033[36;1m
 END		=	\033[0m
 #---------------------------------------------------------------------------------
+
+
 .PHONY:		all	clean	fclean	re	bonus	libft
 
 all:		libft $(NAME)
 
+%.o:		%.c
+			$(CC) $(FLAGS)  -c $< -o $@
+
 libft:
 			@$(MAKE) -C libft/
 
-$(NAME):	$(OBJ)
-			$(CC) $(FLAGS) $(OBJ) $(LIB) -o $(NAME)
-			@echo "$(TURQUOISE)\n\t Complited $(NAME) \n$(END)"
+$(NAME):	$(OBJ_S) $(OBJ_M) $(HEADER_SRCS) libft
+			$(CC) $(FLAGS) $(OBJ_S) $(OBJ_M) $(LIB) -o $(NAME)
+			@echo "$(TURQUOISE)\n\t Completed $(NAME) \n$(END)"
 
-%.o:		%.c $(INCLUDE)$(HEADER)
-			$(CC) $(FLAGS)  -c $< -o $@ -I $(INCLUDE)
 
-#bonus:		libft $(OBJ_B)
-#			$(CC) $(FLAGS) $(OBJ_B) $(LIB) -o $(NAME_B)
-#			@echo "$(TURQUOISE)\n\tComplited $(NAME_B) \n$(END)"
+
+bonus:		$(OBJ_S) $(OBJ_B) $(HEADER_SRCS) $(HEADER_BONUS) libft
+			$(CC) $(FLAGS) $(OBJ_S) $(OBJ_B) $(LIB) -o $(NAME_B)
+			@echo "$(TURQUOISE)\n\tCompleted $(NAME_B) \n$(END)"
+
 
 clean:
-			@$(RM) $(OBJ)
+			@$(RM) $(OBJ_S) $(OBJ_B)  $(OBJ_M)
 			@$(MAKE) -C libft/ clean
 			@echo "$(BLUE)\n\tCleaning succeed\n$(END)"
 
 fclean:		clean
 			@$(MAKE) -C libft/ fclean
-			@$(RM) $(NAME)
+			@$(RM) $(NAME) $(NAME_B)
 			@echo "$(BLUE)\tAll files were deleted\n$(END)"
 
 re:			fclean all

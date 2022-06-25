@@ -23,47 +23,48 @@ void	sort_stack(t_struct *list)
 		do_primary_sorting(list);
 		do_secondary_sorting(list);
 	}
+}
 
-	void do_secondary_sorting(t_struct *list)
+void do_secondary_sorting(t_struct *list)
+{
+	get_max_value(list);
+	while (list->size_b > 0)
 	{
-		get_max_value(list);
-		while (list->size_b > 0)
+		if (list->stack_b->index == list->max)
 		{
-			if (list->stack_b->index == list->max)
-			{
-				push(list,'a');
-				list->max--;
-			}
-			else if (list->stack_b->prev->index == list->max)
-			{
-				r_rotate(list, 'b');
-				push(list, 'a');
-				list->max--;
-			}
-			else
-				scroll_stack(list);
+			push(list, 'a', 1);
+			list->max--;
 		}
+		else if (list->stack_b->prev->index == list->max)
+		{
+			r_rotate(list, 'b', 1);
+			push(list, 'a', 1);
+			list->max--;
+		}
+		else
+			scroll_stack(list);
 	}
+}
 
-	void do_primary_sorting(t_struct *list)
+void do_primary_sorting(t_struct *list)
+{
+	int range;
+
+	range = determine_range(list->size_a);
+	while (list->size_a != 0)
 	{
-		int range;
-
-		range = determine_range(list->size_a);
-		while (list->size_a != 0)
+		if (list->stack_a->index <= list->min_sort)
 		{
-			if (list->stack_a->index <= list->min_sort)
-			{
-				push(list, 'b');
-				list->min_sort++;
-			}
-			else if (list->stack_a->index <= list->min_sort + range)
-			{
-				push(list, 'b');
-				rotate(list, 'b');
-				list->min_sort++;
-			}
-			else
-				rotate(list, 'a');
+			push(list, 'b', 1);
+			list->min_sort++;
 		}
+		else if (list->stack_a->index <= list->min_sort + range)
+		{
+			push(list, 'b', 1);
+			rotate(list, 'b', 1);
+			list->min_sort++;
+		}
+		else
+			rotate(list, 'a', 1);
 	}
+}

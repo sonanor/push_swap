@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-#include "push_swap.h"
 
 t_node	*create_new_list(int index)
 {
@@ -21,7 +20,6 @@ t_node	*create_new_list(int index)
 	if (!list)
 		return (NULL);
 	list->index = index;
-	list->flag = 0;
 	list->next = NULL;
 	list->prev = NULL;
 	return (list);
@@ -38,8 +36,6 @@ t_struct	*create_struct(int array_length)
 	stack->stack_b = NULL;
 	stack->size_a = array_length;
 	stack->size_b = 0;
-	stack->min = 0;
-	stack->med = 0;
 	stack->max = 0;
 	stack->min_sort = 0;
 	return (stack);

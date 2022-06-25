@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <printf.h>
 #include "push_swap.h"
 
 int	main(int argc, char **argv)
@@ -26,14 +25,5 @@ int	main(int argc, char **argv)
 	}
 	stack = initialize_stack(argc, argv);
 	sort_stack(stack);
-	do_primary_sorting(stack);
-	sort_butterfly(stack);
-//	int i = 0;
-//	while (i < stack->size_a)
-//	{
-//		printf("%d", stack->stack_a->index);
-//		stack->stack_a = stack->stack_a->next;
-//		i++;
-//	}
 	free_stack(stack);
 }

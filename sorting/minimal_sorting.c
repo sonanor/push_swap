@@ -24,9 +24,9 @@ void	sort_three_nums(t_struct *list, char stack_char)
 	second = stack->next->index;
 	last = stack->prev->index;
 	if (top > second && top > last)
-		rotate(list, stack_char);
+		rotate(list, stack_char, 1);
 	else if (second > top && second > last)
-		r_rotate(list, stack_char);
+		r_rotate(list, stack_char, 1);
 	if (stack_char == 'a')
 	{
 		top = list->stack_a->index;
@@ -38,21 +38,21 @@ void	sort_three_nums(t_struct *list, char stack_char)
 		second = list->stack_b->next->index;
 	}
 	if (top > second)
-		swap(list, stack_char);
+		swap(list, stack_char, 1);
 }
 
 void	sort_five_nums(t_struct *list)
 {
 	while (list->size_a > 3)
 	{
-		if (list->stack_a->index == 1 || list->stack_a->index == 2)
-			push(list, 'b');
+		if (list->stack_a->index == 0 || list->stack_a->index == 1)
+			push(list, 'b', 1);
 		else
-			rotate(list, 'a');
+			rotate(list, 'a', 1);
 	}
 	sort_three_nums(list, 'a');
 	if (is_sorted_stack(list, 'b'))
-		swap(list, 'b');
-	push(list, 'a');
-	push(list, 'a');
+		swap(list, 'b', 1);
+	push(list, 'a', 1);
+	push(list, 'a', 1);
 }

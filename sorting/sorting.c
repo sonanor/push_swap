@@ -25,7 +25,7 @@ void	sort_stack(t_struct *list)
 	}
 }
 
-void do_secondary_sorting(t_struct *list)
+void	do_secondary_sorting(t_struct *list)
 {
 	get_max_value(list);
 	while (list->size_b > 0)
@@ -46,9 +46,9 @@ void do_secondary_sorting(t_struct *list)
 	}
 }
 
-void do_primary_sorting(t_struct *list)
+void	do_primary_sorting(t_struct *list)
 {
-	int range;
+	int	range;
 
 	range = determine_range(list->size_a);
 	while (list->size_a != 0)

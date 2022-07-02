@@ -60,7 +60,7 @@ void	push_a(t_struct *list)
 	}
 }
 
-void push(t_struct *list, char dst_stack, int is_writable)
+void	push(t_struct *list, char dst_stack, int is_writable)
 {
 	int		src_size;
 	char	src_stack_char;

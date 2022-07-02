@@ -34,32 +34,6 @@ char	opposite_stack(char stack_char)
 	return ('a');
 }
 
-void	write_cmd(char stack_char, char cmd)
-{
-	if (stack_char == 'a' && cmd == 's')
-		write(1, "sa\n", 3);
-	else if (stack_char == 'b' && cmd == 's')
-		write(1, "sb\n", 3);
-	else if (stack_char == 's' && cmd == 's')
-		write(1, "ss\n", 3);
-	else if (stack_char == 'b' && cmd == 'p')
-		write(1, "pb\n", 3);
-	else if (stack_char == 'a' && cmd == 'p')
-		write(1, "pa\n", 3);
-	else if (stack_char == 'a' && cmd == 'r')
-		write(1, "ra\n", 3);
-	else if (stack_char == 'b' && cmd == 'r')
-		write(1, "rb\n", 3);
-	else if (stack_char == 'r' && cmd == 'r')
-		write(1, "rr\n", 3);
-	else if (stack_char == 'a' && cmd == 'v')
-		write(1, "rra\n", 4);
-	else if (stack_char == 'b' && cmd == 'v')
-		write(1, "rrb\n", 4);
-	else if (stack_char == 'r' && cmd == 'v')
-		write(1, "rrr\n", 4);
-}
-
 void	free_stack(t_struct *list)
 {
 	t_node	*tmp;
@@ -80,31 +54,4 @@ void	free_stack(t_struct *list)
 	}
 	free(list);
 	exit(0);
-}
-
-int	*create_index_arr(int *sorted_arr, int *row_arr, int arr_len)
-{
-	int	i;
-	int	j;
-	int	*index_array;
-
-	i = 0;
-	index_array = (int *) malloc(sizeof (int) * arr_len);
-	if (!index_array)
-	{
-		free(sorted_arr);
-		free(row_arr);
-		return (NULL);
-	}
-	while (i < arr_len)
-	{
-		j = 0;
-		while (row_arr[i] != sorted_arr[j])
-			j++;
-		index_array[i] = j;
-		i++;
-	}
-	free(sorted_arr);
-	free(row_arr);
-	return (index_array);
 }

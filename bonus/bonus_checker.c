@@ -1,9 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bonus_checker.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adratini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/02 16:26:46 by adratini          #+#    #+#             */
+/*   Updated: 2022/07/02 16:26:49 by adratini         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "bonus_checker.h"
 
-
-
-int validate(int argc, char **argv)
+int	validate(int argc, char **argv)
 {
 	if (argc == 1)
 		return (0);
@@ -17,29 +26,25 @@ int validate(int argc, char **argv)
 
 char	**get_commands(char **commands)
 {
-	char *line;
-	char *result;
+	char	*line;
+	char	*result;
 
 	result = new_str();
-
 	while (get_next_line(0, &line))
 	{
 		result = ft_strjoin(ft_strjoin(result, line), " ");
 		free(line);
 	}
-
 	commands = ft_split(result, ' ');
-	return commands;
+	return (commands);
 }
 
-void execute_commands(char **commands, t_struct *checker_struct)
+void	execute_commands(char **commands, t_struct *checker_struct)
 {
-	int i;
-//	int j;
+	int	i;
 
 	i = 0;
-//	j = 0;
-	while(commands[i])
+	while (commands[i])
 	{
 		if (!ft_strcmp(commands[i], "sa"))
 			swap(checker_struct, 'a', 0);
@@ -63,15 +68,27 @@ void execute_commands(char **commands, t_struct *checker_struct)
 	}
 }
 
+void	check_commands(t_struct *checker_struct)
+{
+	char		**commands;
+
+	commands = NULL;
+	commands = get_commands(commands);
+	if (*commands != NULL)
+		execute_commands(commands, checker_struct);
+	if (is_sorted_stack(checker_struct, 'a') && checker_struct->size_b == 0)
+		write(1, "OK", 2);
+	else
+		write(1, "KO", 2);
+}
+
 int	main(int argc, char **argv)
 {
 	t_struct	*checker_struct;
 	int			*argv_array;
 	int			array_length;
-	char 		**commands;
 
 	array_length = 0;
-	commands = NULL;
 	if (validate(argc, argv))
 	{
 		argv_array = parse_args(argc, argv, &array_length);
@@ -87,13 +104,7 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 		create_stack(checker_struct, argv_array, array_length);
-		commands = get_commands(commands);
-		if (*commands != NULL)
-			execute_commands(commands, checker_struct);
-		if (is_sorted_stack(checker_struct, 'a') && checker_struct->size_b == 0)
-			write(1, "OK", 2);
-		else
-			write(1, "KO", 2);
+		check_commands(checker_struct);
 	}
 	return (0);
 }

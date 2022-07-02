@@ -23,7 +23,7 @@
 # include <limits.h>
 # include "../libft/libft.h"
 
-int     get_next_line(int fd, char **line);
+int		get_next_line(int fd, char **line);
 char	*ft_strdup_gnl(char *s, int *ret);
 char	*ft_strjoin_gnl(char *s1, char *s2, int *ret);
 

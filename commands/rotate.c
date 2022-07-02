@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-void rotate(t_struct *list, char stack_char, int is_writable)
+void	rotate(t_struct *list, char stack_char, int is_writable)
 {
 	if (get_size(list, stack_char) > 1)
 	{

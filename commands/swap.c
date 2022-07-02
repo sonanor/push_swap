@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-void swap(t_struct *list, char stack_char, int is_writable)
+void	swap(t_struct *list, char stack_char, int is_writable)
 {
 	int		tmp;
 	t_node	*stack;
